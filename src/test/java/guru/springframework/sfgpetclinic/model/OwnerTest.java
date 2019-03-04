@@ -24,16 +24,32 @@ class OwnerTest {
 		
 		// Then
 		assertAll("Properties Test", 
+				/*
+				 * Within a CODE BLOCK, if an assertion fails, 
+				 * the subsequent code in the same block will be skipped 
+				 */
 				() -> {
 					assertEquals("Joe", owner.getFirstName(), 
 							() -> "First Name Failed!");
+					/*
+					 * Executed only if the previous first name assertion is 
+					 * valid.
+					 */
 					assertEquals("Buck", owner.getLastName(), 
 							() -> "Last Name Failed!"); 
 
 				}, 
+				/*
+				 * Within a CODE BLOCK, if an assertion fails, 
+				 * the subsequent code in the same block will be skipped 
+				 */
 				() -> {
 					assertEquals("Key West", owner.getCity(), 
 								() -> "City Failed!");
+					/*
+					 * Executed only if the previous city assertion is 
+					 * valid.
+					 */
 					assertEquals("(123)456-7890", owner.getTelephone(), 
 								() -> "Telephone Failed!");
 				});

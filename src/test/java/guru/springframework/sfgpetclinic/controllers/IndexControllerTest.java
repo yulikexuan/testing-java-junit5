@@ -7,6 +7,7 @@ package guru.springframework.sfgpetclinic.controllers;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 
@@ -19,6 +20,7 @@ class IndexControllerTest {
 		this.controller = new IndexController();
 	}
 
+	@DisplayName("Test proper view name is returned from index.")
 	@Test
 	void testIndes() {
 		assertEquals("index", this.controller.index());
@@ -27,6 +29,7 @@ class IndexControllerTest {
 	}
 	
 	@Test
+	@DisplayName("Test Exception")
 	void testOupsHandler() {
 		assertTrue("notimplemented".equals(this.controller.oupsHandler()), 
 				() -> "This is some expensive Message to build for this test");

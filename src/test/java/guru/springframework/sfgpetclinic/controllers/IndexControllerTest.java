@@ -19,6 +19,7 @@ import org.junit.jupiter.api.condition.OS;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.*;
+import static org.assertj.core.api.Assertions.*;
 
 
 class IndexControllerTest {
@@ -32,10 +33,22 @@ class IndexControllerTest {
 
 	@DisplayName("Test proper view name is returned from index.")
 	@Test
-	void testIndes() {
+	void testIndex() {
 		assertEquals("index", this.controller.index());
 		assertEquals("index", this.controller.index(), 
 				() -> "Wrong view name returned!");
+	}
+	
+	@DisplayName("AssertJ: Test proper view name returned from index.")
+	@Test
+	void testIndexWithAssertionJ() { 
+		
+		// Given
+		String actualViewName = this.controller.index(); 
+		
+		assertThat(actualViewName)
+				.as("Wrong view name: '%s' returned!", actualViewName)
+				.isEqualTo("indes");
 	}
 	
 	@Test

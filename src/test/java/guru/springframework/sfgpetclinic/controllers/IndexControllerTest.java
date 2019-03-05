@@ -11,6 +11,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
+import org.junit.jupiter.api.condition.EnabledOnJre;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.JRE;
+import org.junit.jupiter.api.condition.OS;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.*;
@@ -77,6 +82,36 @@ class IndexControllerTest {
 		// Given
 		String os = "Ubuntu_16";
 		assumeTrue("Ubuntu_16".equalsIgnoreCase(os));
+	}
+	
+	@EnabledOnOs(OS.MAC)
+	@Test
+	void testMeOnMacOs() {
+	}
+	
+	@EnabledOnOs(OS.WINDOWS)
+	@Test
+	void testMeOnWindows() {
+	}
+	
+	@EnabledOnJre(JRE.JAVA_8)
+	@Test
+	void testMeOnJava8() {
+	}
+	
+	@EnabledOnJre(JRE.JAVA_11)
+	@Test
+	void testMeOnJava11() {
+	}
+	
+	@EnabledIfEnvironmentVariable(named = "username", matches = "yul")
+	@Test
+	void testIfUserIsYul() {
+	}
+	
+	@EnabledIfEnvironmentVariable(named = "username", matches = "joel")
+	@Test
+	void testIfUserIsJoel() {
 	}
 
 }///:~

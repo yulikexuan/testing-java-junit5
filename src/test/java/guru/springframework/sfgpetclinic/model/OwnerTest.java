@@ -7,9 +7,11 @@ package guru.springframework.sfgpetclinic.model;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 
+@Tag("model")
 class OwnerTest {
 
 	@BeforeEach

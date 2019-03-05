@@ -6,10 +6,10 @@ package guru.springframework.sfgpetclinic.controllers;
 
 import java.time.Duration;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.junit.jupiter.api.condition.EnabledOnJre;
@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assumptions.*;
 import static org.assertj.core.api.Assertions.*;
 
 
+@Tag("controllers")
 class IndexControllerTest {
 	
 	IndexController controller;

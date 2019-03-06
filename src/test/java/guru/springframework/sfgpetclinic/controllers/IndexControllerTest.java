@@ -9,7 +9,6 @@ import java.time.Duration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.junit.jupiter.api.condition.EnabledOnJre;
@@ -17,13 +16,14 @@ import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.api.condition.JRE;
 import org.junit.jupiter.api.condition.OS;
 
+import guru.springframework.sfgpetclinic.ControllerTest;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.*;
 import static org.assertj.core.api.Assertions.*;
 
 
-@Tag("controllers")
-class IndexControllerTest {
+class IndexControllerTest implements ControllerTest {
 	
 	IndexController controller;
 	
@@ -49,7 +49,7 @@ class IndexControllerTest {
 		
 		assertThat(actualViewName)
 				.as("Wrong view name: '%s' returned!", actualViewName)
-				.isEqualTo("indes");
+				.isEqualTo("index");
 	}
 	
 	@Test

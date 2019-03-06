@@ -9,8 +9,10 @@ import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import guru.springframework.sfgpetclinic.ServiceTest;
 import guru.springframework.sfgpetclinic.model.Owner;
 import guru.springframework.sfgpetclinic.model.PetType;
 import guru.springframework.sfgpetclinic.services.PetService;
@@ -33,7 +35,7 @@ import guru.springframework.sfgpetclinic.services.PetTypeService;
  * 
  */
 @DisplayName("Owner Map Service Test - ")
-class OwnerMapServiceTest {
+class OwnerMapServiceTest implements ServiceTest {
 	
 	OwnerMapService ownerMapService;
     PetTypeService petTypeService;

@@ -4,21 +4,23 @@
 package assertj;
 
 
-import org.assertj.core.util.Arrays;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.*;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static org.assertj.core.api.Assertions.*;
 
-@DisplayName("Learning assertionn for boolean - ")
+
+@DisplayName("Learning Assertions - ")
 public class AssertionTest {
 
 	@Nested
@@ -269,5 +271,218 @@ public class AssertionTest {
 		}//: End of WhenComparingListSizes
 		
 	}
+	
+	@DisplayName("Assertions for Maps - ")
+	@Nested
+	class MapAssertionTest {
+		
+		private final String incorrectKey = "incorrectKey";
+	    private final String key = "key";
+	    private final String value = "value";
+		
+	    private Map<String, String> map;
+	    
+		@BeforeEach
+		void setUp() {
+			this.map = Map.of(this.key, this.value);
+		}
+		
+		/*
+		 * If we want to ensure that a map contains the specified key, 
+		 * invoking the containsKey() method
+		 * 
+		 * If we want to ensure that a map doesn’t contain the specified key, 
+		 * invoking the doesNotContainKey() method
+		 */
+		@DisplayName("Assert Map contains given key - ")
+		@Test
+		void shouldContainsCorrectkey() {
+			assertThat(this.map).containsKey(this.key);
+			assertThat(this.map).doesNotContainKey(this.incorrectKey);
+		}
+		
+		/*
+		 * If we want to ensure that a map contains the specified entry, 
+		 * invoking the containsEntry() method
+		 * 
+		 * If we want to ensure that a map doesn’t contain the specified entry, 
+		 * invoking the doesNotContainEntry() method
+		 */
+		@DisplayName("Verify the map conatins the given map-entry - ")
+		@Test
+		void shouldContainGivenEntry() {
+			assertThat(this.map).containsEntry(this.key, this.value);
+			assertThat(this.map).doesNotContainEntry(this.incorrectKey, 
+					this.value);
+		}
+		
+	}//: End of MapAssertionTest
+	
+	@DisplayName("Assertions for exceptions - ")
+	@Nested
+	class ExceptionAssertionTest {
+		
+		final String message = "Hello AssertJ!";
+		
+		/*
+		 * If we have to get access to the actual exception object, 
+		 * we must use the catchThrowable() method. Otherwise, we should write 
+		 * our assertion by using the assertThatThrownBy() method.
+		 * 
+		 * If we want to verify that the system under throws the expected 
+		 * exception, using the isExactlyInstanceOf() method of 
+		 * AbstractThrowableAssert 
+		 * 
+		 * If we want to verify that the system under throws an exception that 
+		 * has the expected message, using the hasMessage() method
+		 */
+		@DisplayName("Verify the thrown exception - ")
+		@Test
+		void shouldThrowCorrectException() {
+			assertThatThrownBy(() -> { throw new NullPointerException(
+							"Hello AssertJ!"); })
+					.isExactlyInstanceOf(NullPointerException.class)
+					.as("The thrown exception has correct message.")
+					.hasMessage(message);
+		}
+		
+		/*
+		 * If we have to get access to the actual exception object, 
+		 * we must use the catchThrowable() method. 
+		 * Otherwise, we should write our assertion by using the 
+		 * assertThatThrownBy() method.
+		 * 
+		 * Catch the thrown exception by using the static catchThrowable() 
+		 * method Assertions class
+		 * 
+		 * If we want to verify that the system under throws the expected 
+		 * exception, using the isExactlyInstanceOf()
+		 * 
+		 * If we want to verify that the system under throws an exception that 
+		 * has the expected message, using the hasMessage() method of the 
+		 * AbstractThrowableAssert class
+		 */
+		@DisplayName("Catch the thrown exception - ")
+		@Test
+		void shouldCatchCorrectException() {
+			final Throwable thrown = catchThrowable(
+					() -> {throw new NullPointerException("Hello AssertJ!");});
+			assertThat(thrown).isExactlyInstanceOf(NullPointerException.class);
+			assertThat(thrown.getMessage()).isEqualTo(this.message);
+		}
+		
+	}//: End of ExceptionAssertionTest
+	
+	@DisplayName("Assertions for Optional objects - ")
+	@Nested
+	class OptionalAssertionTest {
+		
+		/*
+		 * If we want to ensure that an Optional object is empty, 
+		 * invoking the isEmpty() method
+		 * 
+		 * If we want to ensure that an Optional object is not empty, 
+		 * invoking the isNotEmpty() method 
+		 */
+		@DisplayName("Verify the optional is empty - ")
+		@Test
+		void shouldBeEmpty() {
+			assertThat(Optional.empty()).isEmpty();
+			assertThat(Optional.of(new Object())).isNotEmpty();
+		}
+		
+		/*
+		 * If we want to ensure that an Optional object contains the expected 
+		 * object, invoking the contains() method
+		 */
+		@DisplayName("Verify the optional contains correct object - ")
+		@Test
+		void shouldContainCorrectObject() {
+			
+			// Given
+			Object obj = new Object();
+			
+			assertThat(Optional.of(obj)).contains(obj);
+		}
+		
+	}//: End of OptonalAssertionTest
+	
+	@DisplayName("Using custom error message - ")
+	@Nested
+	class CustomErrorMessageTest {
+		
+		/*
+		 * if we want to override only the description part of the shown error 
+		 * message, invoking either the as() or the describeAs() method
+		 */
+		@DisplayName("Only override the description part - ")
+		@Test
+		void shouldBeTrueWithCustomErrorMessage() {
+			assertThat(true)
+					.as("The boolean is true")
+					.isTrue();
+		}
+		
+		/*
+		 * If we want to override the entire error message, 
+		 * invoking overridingErrorMessage() method
+		 */
+		@DisplayName("Override entire error message - ")
+		@Test
+		void shouldBeTrueWithOverridingEntireErrorMessage() {
+			assertThat(true)
+					.overridingErrorMessage("The boolean is true")
+					.isTrue();
+		}
+		
+	}//: End of CustomErrorMessageTest
+	
+	/*
+	 * If we have to write an assertion for a state that requires multiple 
+	 * assertions, it’s a good idea to run all assertions and report all 
+	 * assertion failures after all assertions have been run. 
+	 * 
+	 */
+	@DisplayName("Soft Assertions - ")
+	@Nested
+	class SoftAssertionTest {
+		
+		private String firstName;
+		private String lastName;
+		private Person person;
+		
+		@BeforeEach
+		void setUp() {
+			this.firstName = "Jane";
+			this.lastName = "Dow"; 
+			this.person = new Person(this.firstName, this.lastName);
+		}
+
+		@DisplayName("Verify the full name of the person - ")
+		@Test
+		void shouldHaveCorrectFullName() {
+			
+			// Given
+			SoftAssertions softAssertions = new SoftAssertions();
+			
+			// When 
+			softAssertions.assertThat(this.person.getFirstName())
+					.overridingErrorMessage(
+							"Expected the first name to be: %1$s but it was: %2$s", 
+							this.firstName, 
+							person.getFirstName())
+					.isEqualTo(this.firstName);
+			softAssertions.assertThat(this.person.getLastName())
+				.overridingErrorMessage(
+						"Expected the last name to be: %1$s but it was: %2$s", 
+						this.lastName, 
+						person.getLastName())
+				.isEqualTo(this.lastName);
+			
+			// Then
+			softAssertions.assertAll();
+		}
+	
+	}//: End of SoftAssertionTest
 	
 }///:~

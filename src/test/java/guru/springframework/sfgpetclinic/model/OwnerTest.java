@@ -14,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import guru.springframework.sfgpetclinic.ModelTest;
@@ -73,6 +74,16 @@ class OwnerTest implements ModelTest {
 		String[] expectedArgs = {"Spring", "Framework", "Guru"};
 		assertThat(value).as("The parameter value should be %s.", value)
 				.isIn(Arrays.asList(expectedArgs));
+	}
+	
+	@DisplayName("Test Enum Parameters: OwnerType - ")
+	@ParameterizedTest(name = "{displayName} [{index}] {arguments}")
+	@EnumSource(OwnerType.class)
+	void testOwnerType(OwnerType ownerType) {
+		assertThat(ownerType)
+				.as("The param should be %s!", 
+						OwnerType.class.getSimpleName())
+				.isInstanceOf(OwnerType.class);
 	}
 
 }///:~

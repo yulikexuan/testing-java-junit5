@@ -14,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -95,6 +96,23 @@ class OwnerTest implements ModelTest {
 		"MI, 5, 6", 
 	})
 	void testCsvInput(String stateName, int val1, int val2) {
+		assertAll(
+				() ->assertThat(stateName)
+						.as("The state name should be %1$s", stateName)
+						.isEqualTo(stateName), 
+				() ->assertThat(val1)
+						.as("The 1st. val should be %1$d", val1)
+						.isEqualTo(val1), 
+				() ->assertThat(val2)
+						.as("The 2nd. val should be %1$d", val2)
+						.isEqualTo(val2)
+		);
+	}
+	
+	@DisplayName("Test CSV File Parameter - ")
+	@ParameterizedTest(name = "{displayName} [{index}] {arguments}")
+	@CsvFileSource(resources = "/states.csv", numLinesToSkip = 1)
+	void testCsvFileInput(String stateName, int val1, int val2) {
 		assertAll(
 				() ->assertThat(stateName)
 						.as("The state name should be %1$s", stateName)

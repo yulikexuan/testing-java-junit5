@@ -14,7 +14,7 @@ public interface ModelTest {
 	
 	@BeforeEach
 	default void beforeEachConsoleOutputer(TestInfo testInfo) {
-		System.out.println("Running Test - " + testInfo.getDisplayName() + " ... ");
+		// System.out.println("Running Test - " + testInfo.getDisplayName() + " ... ");
 	}
 	
 }///:~

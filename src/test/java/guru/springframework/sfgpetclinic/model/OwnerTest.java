@@ -65,8 +65,8 @@ class OwnerTest implements ModelTest {
 				});
 	}
 	
-	@DisplayName("Verify test parameters - ")
-	@ParameterizedTest
+	@DisplayName("ValueSource Tests - ")
+	@ParameterizedTest(name = "{displayName} [{index}] {arguments}")
 	@ValueSource(strings = {"Spring", "Framework", "Guru"})
 	void testValueSource(String value) {
 		//Given

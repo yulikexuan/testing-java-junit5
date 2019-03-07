@@ -4,12 +4,17 @@
 package guru.springframework.sfgpetclinic;
 
 
-//@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-//@Tag("model")
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.TestInstance;
+
+
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@Tag("model")
 public interface ModelTest {
 	
-//	@BeforeAll
-//	default void beforeAll() {
-//	}
+	@BeforeAll
+	default void beforeAll() {
+	}
 	
 }///:~

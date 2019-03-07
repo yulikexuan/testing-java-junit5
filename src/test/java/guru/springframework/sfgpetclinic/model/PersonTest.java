@@ -50,9 +50,7 @@ class PersonTest implements ModelTest {
 	
 	@DisplayName("Run this test multiple times")
 	@RepeatedTest(value = 10, name = "{displayName} : {currentRepetition} / {totalRepetitions}")
-	@Test
 	void repeatedTest() {
-		
 	}
 
 }///:~

@@ -6,8 +6,15 @@ package guru.springframework.sfgpetclinic.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Arrays;
+
+import static org.assertj.core.api.Assertions.*;
+
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import guru.springframework.sfgpetclinic.ModelTest;
 
@@ -18,6 +25,7 @@ class OwnerTest implements ModelTest {
 	void setUp() throws Exception {
 	}
 
+	@DisplayName("Verify JUnit5 Dependent Assertions")
 	@Test
 	void dependentAssertions() {
 		Owner owner = new Owner(1L, "Joe", "Buck");
@@ -55,6 +63,16 @@ class OwnerTest implements ModelTest {
 					assertEquals("(123)456-7890", owner.getTelephone(), 
 								() -> "Telephone Failed!");
 				});
+	}
+	
+	@DisplayName("Verify test parameters - ")
+	@ParameterizedTest
+	@ValueSource(strings = {"Spring", "Framework", "Guru"})
+	void testValueSource(String value) {
+		//Given
+		String[] expectedArgs = {"Spring", "Framework", "Guru"};
+		assertThat(value).as("The parameter value should be %s.", value)
+				.isIn(Arrays.asList(expectedArgs));
 	}
 
 }///:~

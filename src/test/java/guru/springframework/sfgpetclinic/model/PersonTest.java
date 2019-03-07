@@ -9,7 +9,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.RepetitionInfo;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 
 import guru.springframework.sfgpetclinic.ModelTest;
 
@@ -50,7 +52,16 @@ class PersonTest implements ModelTest {
 	
 	@DisplayName("Run this test multiple times")
 	@RepeatedTest(value = 10, name = "{displayName} : {currentRepetition} / {totalRepetitions}")
-	void repeatedTest() {
+	void repeatedTest(TestInfo testInfo, RepetitionInfo repetitionInfo) {
+		System.out.println(testInfo.getDisplayName() + ": " + 
+				repetitionInfo.getCurrentRepetition());
+	}
+	
+	@DisplayName("Repeated test with DI - ")
+	@RepeatedTest(5)
+	void myRepeatedTestWithDI(TestInfo testInfo, RepetitionInfo repetitionInfo) {
+		System.out.println(testInfo.getDisplayName() + ": " + 
+				repetitionInfo.getCurrentRepetition());
 	}
 
 }///:~
